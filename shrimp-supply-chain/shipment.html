@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Shipment Tracking | Shrimp Supply Chain</title>
+    <link rel="stylesheet" href="libs/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        :root {
+            --primary-color: #0A2A5C;
+            --secondary-color: #FF6B35;
+            --accent-color: #2E933C;
+            --text-dark: #2B2D42;
+            --text-light: #0d7eab;
+        }
+
+        .navbar {
+            background: rgba(255, 255, 255, 0.98) !important;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .tracking-hero {
+            background: linear-gradient(135deg, rgba(46, 147, 60, 0.9) 0%, rgba(10, 42, 92, 0.8) 100%), 
+                        url('images/shipping-map.jpg') center/cover fixed;
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .tracking-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 20px 20px 60px rgba(0,0,0,0.1),
+                       -10px -10px 30px rgba(255,255,255,0.8);
+            transition: transform 0.3s ease;
+        }
+        .nav-link {
+            color: var(--primary-color) !important;
+            font-weight: 600;
+            padding: 0.5rem 1.25rem !important;
+            position: relative;
+        }
+        .leaflet-container {
+            border-radius: 15px;
+            height: 500px;
+            z-index: 1;
+        }
+
+        .timeline-card {
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        .timeline-badge {
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .btn-custom {
+            background: var(--secondary-color);
+            color: var(--text-light);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            transition: transform 0.3s ease;
+        }
+
+        .btn-custom:hover {
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand d-flex align-items-center" href="#" style="float: left;"></a>
+            <img src="images/veltech.png" alt="Logo" class="mr-2" style="height: 150px; width: auto;">
+        </a>
+        <div class="mx-auto text-center">
+            <span class="font-weight-bold text-uppercase" style="font-size: 3.5rem; letter-spacing: 1px; color: #106b31;">Shrimp Supply Chain</span>
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="mother-shrimp.html">Mother Shrimp</a></li>
+                <li class="nav-item"><a class="nav-link" href="packaging.html">Packaging</a></li>
+                <li class="nav-item"><a class="nav-link" href="dealer.html">Dealer</a></li>
+                <li class="nav-item"><a class="nav-link" href="shipment.html">Shipment Tracking</a></li>
+                <li class="nav-item"><a class="nav-link" href="delivery.html">Delivery Confirmation</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="tracking-hero">
+        <div class="container text-center">
+            <h1 class="animate__animated animate__fadeInDown" style="font-size: 4rem; color: rgb(255, 255, 255);">
+                Live Shipment Tracking
+            </h1>
+        </div>
+    </section>
+
+    <section class="py-5">
+        <div class="container">
+            <div class="tracking-card mb-5">
+                <form id="tracking-form" class="mb-4">
+                    <div class="input-group input-group-lg">
+                        <input type="text" id="tracking-id" class="form-control" 
+                               placeholder="Enter tracking ID" required>
+                        <button type="submit" class="btn btn-custom">
+                            <i class="fas fa-search-location"></i> Track
+                        </button>
+                    </div>
+                </form>
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <div id="map"></div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-3 bg-light rounded">
+                            <h4><i class="fas fa-map-marker-alt"></i> Current Location</h4>
+                            <p id="current-location" class="text-muted">-</p>
+                            
+                            <h4><i class="fas fa-thermometer-half"></i> Container Temp</h4>
+                            <p id="container-temp" class="text-primary">-18°C ±1°C</p>
+                            
+                            <h4><i class="fas fa-clock"></i> Last Update</h4>
+                            <p id="last-update" class="text-muted">-</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        const locations = [
+            { coords: [13.0827, 80.2707], name: "Chennai Port, TN" },
+            { coords: [17.6868, 83.2185], name: "Visakhapatnam, AP" },
+            { coords: [20.2604, 86.7081], name: "Paradip Port, Odisha" },
+            { coords: [22.5726, 88.3639], name: "Kolkata Port, WB" },
+            { coords: [8.7642, 78.1348], name: "Tuticorin, TN" },
+            { coords: [9.9312, 76.2673], name: "Kochi Port, KL" },
+            { coords: [12.9141, 74.8560], name: "Mangalore, KA" },
+            { coords: [15.4025, 73.7883], name: "Mormugao, Goa" },
+            { coords: [18.9517, 72.8897], name: "JNPT Mumbai, MH" },
+            { coords: [23.0302, 70.1967], name: "Kandla Port, GJ" },
+            { coords: [28.6139, 77.2090], name: "Delhi NCR" },
+            { coords: [19.0760, 72.8777], name: "Mumbai Port, MH" }
+        ];
+
+        const map = L.map('map').setView([15.5937, 78.9629], 5);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+        document.getElementById('tracking-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const randomLoc = locations[Math.floor(Math.random() * locations.length)];
+            
+            map.setView(randomLoc.coords, 8);
+            L.marker(randomLoc.coords)
+                .addTo(map)
+                .bindPopup(`<b>${randomLoc.name}</b><br>Temp: -18°C`)
+                .openPopup();
+
+            document.getElementById('current-location').textContent = randomLoc.name;
+            document.getElementById('last-update').textContent = new Date().toLocaleString();
+        });
+    </script>
+
+<div class="developer-credit">
+    <div class="credit-container animate__animated animate__fadeInUp">
+        <span class="credit-text">Developed by Akshay Reddeppa </span>
+    </div>
+</div>
+
+<style>
+    .developer-credit {
+        position: relative;
+        padding: 2rem 0;
+        background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+        margin-top: 50px;
+    }
+
+    .credit-container {
+        text-align: center;
+        padding: 1.5rem;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(8px);
+        border-radius: 15px;
+        width: fit-content;
+        margin: 0 auto;
+        box-shadow: 0 0 30px rgba(46, 147, 60, 0.3);
+        border: 2px solid rgba(255,255,255,0.2);
+    }
+
+    .credit-text {
+        display: block;
+        color: white;
+        font-size: 1.2rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 0.5rem;
+    }
+</style>
+</body>
+</html>

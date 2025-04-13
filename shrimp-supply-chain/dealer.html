@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dealer Portal | Certified Shrimp Distribution</title>
+    <link rel="stylesheet" href="libs/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .dealer-hero {
+            background: linear-gradient(135deg, rgba(10, 42, 92, 0.9) 0%, rgba(46, 147, 60, 0.8) 100%), 
+                        url('images/dealer-network.jpg') center/cover fixed;
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .batch-card {
+            background: rgba(255,255,255,0.95);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 20px 20px 60px rgba(0,0,0,0.1),
+                       -10px -10px 30px rgba(255,255,255,0.8);
+            transition: transform 0.3s ease;
+        }
+
+        .batch-card:hover {
+            transform: translateY(-5px);
+        }
+        .nav-link {
+            color: var(--primary-color) !important;
+            font-weight: 600;
+            padding: 0.5rem 1.25rem !important;
+            position: relative;
+        }
+        .certification-badge {
+            background: var(--accent-color);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 700;
+            display: inline-block;
+        }
+        .main-footer {
+            padding: 2rem 0;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+            margin-top: 4rem;
+            position: relative;
+        }
+
+        .footer-content {
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(8px);
+            border-radius: 15px;
+            width: fit-content;
+            margin: 0 auto;
+            box-shadow: 0 0 30px rgba(46, 147, 60, 0.3);
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+
+        .developer-credit {
+            color: var(--text-light);
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 0;
+            font-weight: 600;
+        }
+
+        .developer-credit span {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            background: linear-gradient(90deg, var(--secondary-color) 0%, rgba(255,107,53,0.2) 100%);
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Enhanced Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand d-flex align-items-center" href="#" style="float: left;"></a>
+            <img src="images/veltech.png" alt="Logo" class="mr-2" style="height: 150px; width: auto;">
+        </a>
+        <div class="mx-auto text-center">
+            <span class="font-weight-bold text-uppercase" style="font-size: 3.5rem; letter-spacing: 1px; color: #106b31;">Shrimp Supply Chain</span>
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="mother-shrimp.html">Mother Shrimp</a></li>
+                <li class="nav-item"><a class="nav-link" href="packaging.html">Packaging</a></li>
+                <li class="nav-item"><a class="nav-link" href="dealer.html">Dealer</a></li>
+                <li class="nav-item"><a class="nav-link" href="shipment.html">Shipment Tracking</a></li>
+                <li class="nav-item"><a class="nav-link" href="delivery.html">Delivery Confirmation</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Dealer Hero Section -->
+    <section class="dealer-hero">
+        <div class="container text-center position-relative z-index-1">
+            <h1 class="font-weight-bold text-uppercase mb-4 animate__animated animate__fadeInDown" 
+                style="font-size: 4.5rem; letter-spacing: 2px; color: var(--text-light);">
+                Certified Dealer Network
+            </h1>
+            <p class="lead-text animate__animated animate__fadeInUp animate__delay-1s" 
+               style="font-size: 2rem; color: var(--text-light);">
+                Premium Quality Shrimp Distribution
+            </p>
+        </div>
+    </section>
+
+    <!-- Batch Details Section -->
+    <section class="py-6">
+        <div class="container">
+            <div class="row g-5">
+                <!-- Batch Information -->
+                <div class="col-lg-8">
+                    <div class="batch-card mb-5">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h2 class="text-primary mb-0"><i class="fas fa-shrimp me-2"></i>Batch ID: SHRIMP-2023-12345</h2>
+                            <span class="certification-badge">HACCP Certified</span>
+                        </div>
+                        
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <div class="bg-light p-3 rounded">
+                                    <h5><i class="fas fa-calendar-alt me-2"></i>Harvest Date</h5>
+                                    <p class="text-accent mb-0">2023-10-01</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="bg-light p-3 rounded">
+                                    <h5><i class="fas fa-weight-hanging me-2"></i>Total Weight</h5>
+                                    <p class="text-accent mb-0">200 kg ± 1%</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="bg-light p-3 rounded">
+                                    <h5><i class="fas fa-thermometer-half me-2"></i>Storage Temp</h5>
+                                    <p class="text-accent mb-0">-18°C ±1°C</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="bg-light p-3 rounded">
+                                    <h5><i class="fas fa-box me-2"></i>Packaging Type</h5>
+                                    <p class="text-accent mb-0">Vacuum-sealed</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quality Report -->
+                    <div class="batch-card">
+                        <h3 class="text-primary mb-4"><i class="fas fa-clipboard-check me-2"></i>Quality Assurance</h3>
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <div class="card border-0 shadow-sm h-100">
+                                    <div class="card-body">
+                                        <h5 class="text-success"><i class="fas fa-microscope me-2"></i>Lab Results</h5>
+                                        <ul class="list-unstyled">
+                                            <li>✔ 0% Pathogen Detection</li>
+                                            <li>✔ Heavy Metal Free</li>
+                                            <li>✔ Antibiotic Free</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card border-0 shadow-sm h-100">
+                                    <div class="card-body">
+                                        <h5 class="text-success"><i class="fas fa-chart-line me-2"></i>Quality Metrics</h5>
+                                        <div class="progress mb-3" style="height: 8px;">
+                                            <div class="progress-bar bg-success" role="progressbar" style="width: 98%"></div>
+                                        </div>
+                                        <p class="mb-0">98% Grade AA Compliance</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Purchase Section -->
+                <div class="col-lg-4">
+                    <div class="batch-card">
+                        <h3 class="text-primary mb-4"><i class="fas fa-handshake me-2"></i>Purchase Details</h3>
+                        <div class="mb-4">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <tbody>
+                                        <tr>
+                                            <th>Available Quantity</th>
+                                            <td>200 kg</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Price/kg</th>
+                                            <td>850/-</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Total Value</th>
+                                            <td>170000/-</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Minimum Order</th>
+                                            <td>50 kg</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-custom">
+                                <i class="fas fa-file-contract me-2"></i>Request Contract
+                            </button>
+                            <button class="btn btn-outline-primary">
+                                <i class="fas fa-download me-2"></i>Download Certificates
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Distribution Timeline -->
+            <div class="genetic-timeline mt-6">
+                <h3 class="text-center mb-5 display-5"><i class="fas fa-truck-moving me-2 text-accent"></i>Distribution Timeline</h3>
+                <div class="row">
+                    <div class="col-md-4 mb-4">
+                        <div class="card border-0 shadow-sm timeline-card">
+                            <div class="card-body">
+                                <div class="timeline-badge bg-accent text-light">Step 1</div>
+                                <h5 class="text-success mb-3"><i class="fas fa-warehouse me-2"></i>Cold Storage</h5>
+                                <p class="mb-0">24hr temperature monitored facility</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="card border-0 shadow-sm timeline-card">
+                            <div class="card-body">
+                                <div class="timeline-badge bg-accent text-light">Step 2</div>
+                                <h5 class="text-success mb-3"><i class="fas fa-boxes me-2"></i>Batch Allocation</h5>
+                                <p class="mb-0">Automated inventory distribution</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="card border-0 shadow-sm timeline-card">
+                            <div class="card-body">
+                                <div class="timeline-badge bg-accent text-light">Step 3</div>
+                                <h5 class="text-success mb-3"><i class="fas fa-shipping-fast me-2"></i>Dispatch</h5>
+                                <p class="mb-0">GPS-tracked refrigerated transport</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="libs/jquery.min.js"></script>
+    <script src="libs/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+
+    <footer class="main-footer">
+        <div class="footer-content animate__animated animate__fadeInUp">
+            <p class="developer-credit">
+                Developed by <span>Akshay Reddeppa</span>
+            </p>
+        </div>
+    </footer>
+</body>
+</html>

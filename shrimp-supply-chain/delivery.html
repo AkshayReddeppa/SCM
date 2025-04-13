@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delivery & End Client Confirmation | Shrimp Supply Chain</title>
+    <link rel="stylesheet" href="libs/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .header-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            color: #2c3e50;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            margin: 2rem 0;
+            position: relative;
+        }
+        
+        .section-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .section-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .progress-steps {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            margin: 2rem 0;
+        }
+        
+        .step {
+            flex: 1;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .step-icon {
+            width: 50px;
+            height: 50px;
+            background: #e9ecef;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.5rem;
+            color: #6c757d;
+        }
+        .nav-link {
+            color: var(--primary-color) !important;
+            font-weight: 600;
+            padding: 0.5rem 1.25rem !important;
+            position: relative;
+        }
+        .step.active .step-icon {
+            background: #007bff;
+            color: white;
+        }
+        
+        .rating-stars {
+            font-size: 2rem;
+            cursor: pointer;
+            margin: 1rem 0;
+        }
+        
+        .rating-stars .star {
+            color: #e9ecef;
+            transition: color 0.2s ease;
+        }
+        
+        .rating-stars .star.active {
+            color: #ffd700;
+        }
+        
+        #scanner-container {
+            border: 3px dashed #007bff;
+            border-radius: 15px;
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f8f9fa;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        #qr-video {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+        .main-footer {
+            padding: 2rem 0;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+            margin-top: 4rem;
+            position: relative;
+        }
+
+        .footer-content {
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(8px);
+            border-radius: 15px;
+            width: fit-content;
+            margin: 0 auto;
+            box-shadow: 0 0 30px rgba(46, 147, 60, 0.3);
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+
+        .developer-credit {
+            color: var(--text-light);
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 0;
+            font-weight: 600;
+        }
+
+        .developer-credit span {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            background: linear-gradient(90deg, var(--secondary-color) 0%, rgba(255,107,53,0.2) 100%);
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand d-flex align-items-center" href="#" style="float: left;"></a>
+            <img src="images/veltech.png" alt="Logo" class="mr-2" style="height: 150px; width: auto;">
+        </a>
+        <div class="mx-auto text-center">
+            <span class="font-weight-bold text-uppercase" style="font-size: 3.5rem; letter-spacing: 1px; color: #106b31;">Shrimp Supply Chain</span>
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="mother-shrimp.html">Mother Shrimp</a></li>
+                <li class="nav-item"><a class="nav-link" href="packaging.html">Packaging</a></li>
+                <li class="nav-item"><a class="nav-link" href="dealer.html">Dealer</a></li>
+                <li class="nav-item"><a class="nav-link" href="shipment.html">Shipment Tracking</a></li>
+                <li class="nav-item"><a class="nav-link" href="delivery.html">Delivery Confirmation</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container" style="margin-top: 100px;">
+        <h1 class="header-title">
+            <i class="fas fa-truck-check me-3"></i>Delivery Confirmation
+        </h1>
+
+        <div class="section-card">
+            <h2 class="text-center mb-4"><i class="fas fa-qrcode me-2"></i>QR Code Verification</h2>
+            <div id="scanner-container" class="mb-4">
+                <div id="scanner-placeholder" class="text-center">
+                    <p class="text-muted mb-3">Click start scanning to begin verification</p>
+                    <button id="scan-button" class="btn btn-primary btn-lg">
+                        <i class="fas fa-camera me-2"></i>Start Scanning
+                    </button>
+                </div>
+                <video id="qr-video" hidden></video>
+            </div>
+            <div id="scan-result" class="alert alert-success text-center" role="alert" style="display: none;"></div>
+        </div>
+
+        <div class="section-card">
+            <h3 class="mb-4"><i class="fas fa-map-marked-alt me-2"></i>Delivery Progress</h3>
+            <div class="progress-steps">
+                <div class="step active">
+                    <div class="step-icon"><i class="fas fa-box-open"></i></div>
+                    <div class="step-label">Packaged</div>
+                </div>
+                <div class="step active">
+                    <div class="step-icon"><i class="fas fa-shipping-fast"></i></div>
+                    <div class="step-label">In Transit</div>
+                </div>
+                <div class="step active">
+                    <div class="step-icon"><i class="fas fa-check-circle"></i></div>
+                    <div class="step-label">Delivered</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-card">
+            <h3 class="mb-4"><i class="fas fa-comment-dots me-2"></i>Customer Feedback</h3>
+            <form id="feedback-form">
+                <div class="form-group mb-4">
+                    <label for="feedback" class="form-label">Share your experience:</label>
+                    <textarea id="feedback" class="form-control" rows="4" 
+                              placeholder="How was your experience with our service?"></textarea>
+                </div>
+                
+                <div class="form-group mb-4">
+                    <label class="form-label">Rate your experience:</label>
+                    <div class="rating-stars">
+                        <span class="star" data-value="1"><i class="far fa-star"></i></span>
+                        <span class="star" data-value="2"><i class="far fa-star"></i></span>
+                        <span class="star" data-value="3"><i class="far fa-star"></i></span>
+                        <span class="star" data-value="4"><i class="far fa-star"></i></span>
+                        <span class="star" data-value="5"><i class="far fa-star"></i></span>
+                    </div>
+                    <input type="hidden" id="rating" name="rating">
+                </div>
+
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-success btn-lg">
+                        <i class="fas fa-paper-plane me-2"></i>Submit Feedback
+                    </button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+
+    <script src="libs/jquery.min.js"></script>
+    <script src="libs/bootstrap.bundle.min.js"></script>
+    <script src="libs/qr-scanner-library.js"></script>
+    <script>
+        // Enhanced QR Scanner
+        document.getElementById('scan-button').addEventListener('click', function() {
+            const video = document.getElementById('qr-video');
+            const scannerPlaceholder = document.getElementById('scanner-placeholder');
+            
+            scannerPlaceholder.style.display = 'none';
+            video.hidden = false;
+            
+            const qrScanner = new QrScanner(video, result => {
+                qrScanner.stop();
+                document.getElementById('scan-result').style.display = 'block';
+                document.getElementById('scan-result').textContent = `Verified: ${result}`;
+            });
+            
+            qrScanner.start();
+        });
+
+        // Star Rating System
+        document.querySelectorAll('.star').forEach(star => {
+            star.addEventListener('click', function() {
+                const value = parseInt(this.dataset.value);
+                document.querySelectorAll('.star').forEach((s, index) => {
+                    s.querySelector('i').className = index < value ? 'fas fa-star' : 'far fa-star';
+                    s.classList.toggle('active', index < value);
+                });
+                document.getElementById('rating').value = value;
+            });
+        });
+
+        // Form Submission
+        $('#feedback-form').submit(function(e) {
+            e.preventDefault();
+            $('#thankYouModal').modal('show');
+            this.reset();
+            document.querySelectorAll('.star').forEach(star => {
+                star.querySelector('i').className = 'far fa-star';
+            });
+        });
+    </script>
+
+<footer class="main-footer">
+    <div class="footer-content animate__animated animate__fadeInUp">
+        <p class="developer-credit">
+            Developed by <span>Akshay Reddeppa</span>
+        </p>
+    </div>
+</footer>
+</body>
+</html>
