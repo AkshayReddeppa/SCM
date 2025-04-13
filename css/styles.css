@@ -1,0 +1,64 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+}
+
+.navbar {
+    background-color: #ffffff;
+    padding: 10px;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+}
+
+.navbar a:hover {
+    background-color: #ffffff;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+}
+
+h1, h2, h3 {
+    color: #333;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+.qr-scanner {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.feedback {
+    margin-top: 20px;
+}
+
+.feedback input[type="text"],
+.feedback input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+}
+
+.feedback button {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+}
+
+.feedback button:hover {
+    background-color: #218838;
+}
